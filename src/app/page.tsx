@@ -32,6 +32,16 @@ export default function Home() {
       text: '#111',
       tag: 'Editorial · Magazine',
     },
+    {
+      href: '/v4',
+      num: 'V4',
+      name: 'Aurora Night',
+      desc: 'Dark com gradiente aurora animado, orbs flutuantes, contador de stats e scroll reveal em tudo.',
+      bg: '#060008',
+      accent: '#C9A84C',
+      text: '#F5F0F0',
+      tag: 'Motion · Dark Luxury',
+    },
   ]
 
   return (
@@ -41,7 +51,7 @@ export default function Home() {
         <h1 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', fontWeight: 700, color: '#fff', marginBottom: 12 }}>
           Escolha o layout
         </h1>
-        <p style={{ fontSize: 15, color: '#666' }}>3 versões visuais. Abra cada uma para comparar</p>
+        <p style={{ fontSize: 15, color: '#666' }}>4 versões visuais. Abra cada uma para comparar</p>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, maxWidth: 960, width: '100%' }}>
         {versions.map(v => (

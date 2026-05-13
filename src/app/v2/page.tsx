@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+
 const WA_NUMBER = '5579999999999'
 const WA_MSG = encodeURIComponent('Oi! Vi o site de vocês e quero agendar um horário. Podem me ajudar?')
 const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`
@@ -25,6 +27,15 @@ const diferenciais = [
 ]
 
 export default function V2() {
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view') }),
+      { threshold: 0.12 }
+    )
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
   return (
     <main style={{ fontFamily: "var(--font-inter), sans-serif", background: '#FDF6F2', color: '#1A0D13', overflowX: 'hidden' }}>
 
@@ -45,13 +56,13 @@ export default function V2() {
       <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '80px 40px 60px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
           {/* Tag */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#F7EAED', border: '1px solid #E8C4CF', borderRadius: 100, padding: '6px 16px', fontSize: 12, fontWeight: 600, color: '#8B1C5A', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 40 }}>
+          <div className="animate-fade-up" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#F7EAED', border: '1px solid #E8C4CF', borderRadius: 100, padding: '6px 16px', fontSize: 12, fontWeight: 600, color: '#8B1C5A', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 40 }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#8B1C5A', display: 'inline-block' }} />
             9 anos no RioMar, Aracaju
           </div>
 
           {/* Headline oversized */}
-          <h1 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(3rem, 9vw, 7.5rem)', fontWeight: 700, lineHeight: 0.95, color: '#1A0D13', letterSpacing: '-0.02em', marginBottom: 48 }}>
+          <h1 className="animate-fade-up delay-200" style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(3rem, 9vw, 7.5rem)', fontWeight: 700, lineHeight: 0.95, color: '#1A0D13', letterSpacing: '-0.02em', marginBottom: 48 }}>
             Manicure,<br />
             cabelo e<br />
             <span style={{ color: '#8B1C5A', fontStyle: 'italic' }}>sobrancelha.</span><br />
@@ -59,7 +70,7 @@ export default function V2() {
           </h1>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'flex-end', justifyContent: 'space-between' }}>
-            <div style={{ maxWidth: 460 }}>
+            <div className="animate-fade-up delay-400" style={{ maxWidth: 460 }}>
               <p style={{ fontSize: 18, color: '#6B4A56', lineHeight: 1.7, marginBottom: 36 }}>
                 Na Esmalteria Unhas Top, você faz até 3 serviços ao mesmo tempo e sai em menos de 1 hora. No RioMar Shopping, Aracaju.
               </p>
@@ -90,8 +101,8 @@ export default function V2() {
                 { val: '9+', label: 'anos de experiência' },
                 { val: '15', label: 'profissionais no espaço' },
                 { val: '20min', label: 'espera máxima' },
-              ].map(s => (
-                <div key={s.val} style={{ background: '#fff', border: '1px solid #F0DDD8', borderRadius: 14, padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 16, minWidth: 200 }}>
+              ].map((s, i) => (
+                <div key={s.val} className={`animate-slide-right delay-${(i + 2) * 100}`} style={{ background: '#fff', border: '1px solid #F0DDD8', borderRadius: 14, padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 16, minWidth: 200 }}>
                   <span style={{ fontFamily: "var(--font-playfair), serif", fontSize: 28, fontWeight: 700, color: '#8B1C5A', lineHeight: 1 }}>{s.val}</span>
                   <span style={{ fontSize: 13, color: '#9B7080', lineHeight: 1.3 }}>{s.label}</span>
                 </div>
@@ -125,9 +136,10 @@ export default function V2() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 1, background: '#F0DDD8' }}>
-          {services.map(s => (
+          {services.map((s, i) => (
             <div
               key={s.name}
+              className={`reveal d${(i % 4) + 1}`}
               style={{ background: '#FDF6F2', padding: '32px 28px', transition: 'background 0.2s', cursor: 'default' }}
               onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.background = '#F7EAED'}
               onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.background = '#FDF6F2'}
@@ -158,8 +170,8 @@ export default function V2() {
             </h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1px', background: 'rgba(255,255,255,0.08)' }}>
-            {diferenciais.map(d => (
-              <div key={d.num} style={{ background: '#1A0D13', padding: '36px 32px', transition: 'background 0.2s' }}
+            {diferenciais.map((d, i) => (
+              <div key={d.num} className={`reveal d${(i % 3) + 1}`} style={{ background: '#1A0D13', padding: '36px 32px', transition: 'background 0.2s' }}
                 onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.background = '#250E18'}
                 onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.background = '#1A0D13'}
               >
