@@ -47,7 +47,7 @@ export default function Home() {
   return (
     <main style={{ fontFamily: "var(--font-inter), sans-serif", minHeight: '100vh', background: '#0A0A0A', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px 24px' }}>
       <div style={{ textAlign: 'center', marginBottom: 56 }}>
-        <img src="/Logo.jpg" alt="Esmalteria Unhas Top" style={{ height: 44, borderRadius: 4, marginBottom: 24 }} />
+        <img src="/Logo.PNG" alt="Esmalteria Unhas Top" style={{ height: 44, borderRadius: 4, marginBottom: 24 }} />
         <h1 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', fontWeight: 700, color: '#fff', marginBottom: 12 }}>
           Escolha o layout
         </h1>

@@ -9,7 +9,7 @@ function Logo({ height = 40 }: { height?: number }) {
   return (
     <div style={{ width: w, height, overflow: 'hidden', borderRadius: 6, flexShrink: 0 }}>
       <img
-        src="/Logo.jpg"
+        src="/Logo.PNG"
         alt="Esmalteria Unhas Top"
         style={{
           width: '100%', height: 'auto', display: 'block',

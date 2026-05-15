@@ -406,7 +406,7 @@ export default function V4() {
 
       {/* FOOTER */}
       <footer style={{ background: 'rgba(255,255,255,0.03)', borderTop: '1px solid rgba(255,255,255,0.07)', padding: '28px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-        <img src="/Logo.jpg" alt="Esmalteria Unhas Top" style={{ height: 36, borderRadius: 4, opacity: 0.85 }} />
+        <img src="/Logo.PNG" alt="Esmalteria Unhas Top" style={{ height: 36, borderRadius: 4, opacity: 0.85 }} />
         <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>RioMar Shopping Aracaju · © 2025</p>
       </footer>
 
