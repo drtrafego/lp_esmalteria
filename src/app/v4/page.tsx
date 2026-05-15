@@ -1,10 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-
-const WA_NUMBER = '5579999999999'
-const WA_MSG = encodeURIComponent('Oi! Vi o site de vocês e quero agendar um horário. Podem me ajudar?')
-const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`
+import { useRouter } from 'next/navigation'
 
 function useReveal() {
   useEffect(() => {
@@ -68,6 +65,10 @@ const diferenciais = [
 export default function V4() {
   useReveal()
 
+  const router = useRouter()
+  const [nome, setNome] = useState('')
+  const [tel, setTel] = useState('')
+
   const statsRef = useRef<HTMLDivElement>(null)
   const [statsActive, setStatsActive] = useState(false)
   useEffect(() => {
@@ -78,25 +79,25 @@ export default function V4() {
     return () => io.disconnect()
   }, [])
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!nome.trim() || !tel.trim()) return
+    router.push(`/obrigado?nome=${encodeURIComponent(nome)}&tel=${encodeURIComponent(tel)}`)
+  }
+
   return (
     <main style={{ fontFamily: "var(--font-inter), sans-serif", background: '#060008', color: '#F5F0F0', overflowX: 'hidden' }}>
 
-      {/* WA FLUTUANTE */}
-      <a
-        href={WA_LINK}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="WhatsApp"
-        className="animate-pulse-border"
-        style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 999, background: '#25D366', borderRadius: '50%', width: 60, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.2s' }}
-        onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1.12)'}
-        onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1)'}
-      >
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      </a>
-
       {/* HERO */}
       <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '80px 32px', overflow: 'hidden' }}>
+
+        {/* Imagem de fundo */}
+        <img
+          src="/img3.jpg"
+          alt=""
+          aria-hidden="true"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', opacity: 0.18, pointerEvents: 'none' }}
+        />
 
         {/* Aurora background */}
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,28,90,0.55) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 80% 80%, rgba(201,168,76,0.18) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 10% 90%, rgba(139,28,90,0.25) 0%, transparent 60%)', backgroundSize: '200% 200%', animation: 'aurora 8s ease infinite', pointerEvents: 'none' }} />
@@ -129,15 +130,12 @@ export default function V4() {
 
           <div className="animate-fade-up delay-500" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#form"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#8B1C5A', color: '#fff', padding: '17px 40px', borderRadius: 14, fontSize: 15, fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 0 40px rgba(139,28,90,0.5)' }}
               onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#A82270'; el.style.transform = 'translateY(-3px)'; el.style.boxShadow = '0 0 60px rgba(139,28,90,0.7)' }}
               onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#8B1C5A'; el.style.transform = 'translateY(0)'; el.style.boxShadow = '0 0 40px rgba(139,28,90,0.5)' }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Agendar pelo WhatsApp
+              Agendar meu horário
             </a>
             <a
               href="#servicos"
@@ -198,9 +196,7 @@ export default function V4() {
           </div>
           <div className="reveal" style={{ marginTop: 48, textAlign: 'center' }}>
             <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#form"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#8B1C5A', color: '#fff', padding: '15px 36px', borderRadius: 12, fontSize: 15, fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 0 32px rgba(139,28,90,0.35)' }}
               onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#A82270'; el.style.transform = 'translateY(-2px)' }}
               onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#8B1C5A'; el.style.transform = 'translateY(0)' }}
@@ -310,9 +306,7 @@ export default function V4() {
         </div>
         <div className="reveal">
           <a
-            href={WA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#form"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#8B1C5A', color: '#fff', padding: '16px 40px', borderRadius: 12, fontSize: 15, fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 0 32px rgba(139,28,90,0.35)' }}
             onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#A82270'; el.style.transform = 'translateY(-2px)' }}
             onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#8B1C5A'; el.style.transform = 'translateY(0)' }}
@@ -368,31 +362,45 @@ export default function V4() {
         </div>
       </section>
 
-      {/* CTA FINAL */}
-      <section style={{ position: 'relative', padding: '120px 32px', textAlign: 'center', overflow: 'hidden' }}>
+      {/* FORMULÁRIO */}
+      <style>{`#v4-form input::placeholder { color: rgba(255,255,255,0.35); }`}</style>
+      <section id="form" style={{ position: 'relative', padding: '100px 32px', textAlign: 'center', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(139,28,90,0.3) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: 680, margin: '0 auto' }}>
-          <h2 className="reveal" style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(2.5rem, 7vw, 5rem)', fontWeight: 700, lineHeight: 1.05, marginBottom: 24 }}>
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 480, margin: '0 auto' }}>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.22em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: 16 }}>Agendamento</p>
+          <h2 className="reveal" style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 700, lineHeight: 1.05, marginBottom: 16 }}>
             Pronta para<br />
             <em style={{ background: 'linear-gradient(135deg, #C9A84C, #E8C4CF, #8B1C5A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>agendar?</em>
           </h2>
-          <p className="reveal d1" style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, marginBottom: 48 }}>
-            Manda uma mensagem e a gente confirma seu horário na hora.
+          <p className="reveal d1" style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, marginBottom: 40 }}>
+            Preencha seus dados e entraremos em contato pelo WhatsApp para confirmar seu horário.
           </p>
-          <div className="reveal d2">
-            <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: '#8B1C5A', color: '#fff', padding: '18px 48px', borderRadius: 14, fontSize: 17, fontWeight: 700, textDecoration: 'none', transition: 'all 0.25s', boxShadow: '0 0 60px rgba(139,28,90,0.5)' }}
-              onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#A82270'; el.style.transform = 'translateY(-4px) scale(1.02)'; el.style.boxShadow = '0 0 80px rgba(139,28,90,0.7)' }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#8B1C5A'; el.style.transform = 'translateY(0) scale(1)'; el.style.boxShadow = '0 0 60px rgba(139,28,90,0.5)' }}
+          <form id="v4-form" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <input
+              type="text"
+              placeholder="Seu nome"
+              value={nome}
+              onChange={e => setNome(e.target.value)}
+              required
+              style={{ padding: '16px 20px', borderRadius: 12, border: '1px solid rgba(139,28,90,0.5)', background: 'rgba(139,28,90,0.12)', color: '#fff', fontSize: 16, width: '100%', boxSizing: 'border-box', outline: 'none' }}
+            />
+            <input
+              type="tel"
+              placeholder="Seu WhatsApp (com DDD)"
+              value={tel}
+              onChange={e => setTel(e.target.value)}
+              required
+              style={{ padding: '16px 20px', borderRadius: 12, border: '1px solid rgba(139,28,90,0.5)', background: 'rgba(139,28,90,0.12)', color: '#fff', fontSize: 16, width: '100%', boxSizing: 'border-box', outline: 'none' }}
+            />
+            <button
+              type="submit"
+              style={{ padding: '17px', borderRadius: 12, border: 'none', background: '#8B1C5A', color: '#fff', fontSize: 16, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', boxShadow: '0 0 40px rgba(139,28,90,0.5)' }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLButtonElement; el.style.background = '#A82270'; el.style.boxShadow = '0 0 60px rgba(139,28,90,0.7)' }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLButtonElement; el.style.background = '#8B1C5A'; el.style.boxShadow = '0 0 40px rgba(139,28,90,0.5)' }}
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Agendar pelo WhatsApp
-            </a>
-            <p style={{ marginTop: 18, fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>Retorno em até 1 hora no horário comercial.</p>
-          </div>
+              Quero agendar meu horário
+            </button>
+          </form>
         </div>
       </section>
 

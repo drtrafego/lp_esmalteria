@@ -1,37 +1,22 @@
 'use client'
 
-const WA_NUMBER = '5579999999999'
-const WA_MSG = encodeURIComponent('Oi! Vi o site de vocês e quero agendar um horário. Podem me ajudar?')
-const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
-const WA_SVG = (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-)
-
-/* Componente de logo que corta as bordas pretas do JPG */
 function Logo({ height = 40 }: { height?: number }) {
-  const ratio = 3.6 // largura/altura aproximada da área útil do logo
+  const ratio = 3.6
   const w = Math.round(height * ratio)
   return (
-    <div style={{
-      width: w, height, overflow: 'hidden', borderRadius: 6,
-      flexShrink: 0,
-    }}>
+    <div style={{ width: w, height, overflow: 'hidden', borderRadius: 6, flexShrink: 0 }}>
       <img
         src="/Logo.jpg"
         alt="Esmalteria Unhas Top"
         style={{
-          width: '100%',
-          height: 'auto',
-          display: 'block',
-          /* crop: remove ~12% top/bottom black padding */
+          width: '100%', height: 'auto', display: 'block',
           marginTop: `${-height * 0.15}px`,
           marginBottom: `${-height * 0.15}px`,
           minHeight: `${height * 1.3}px`,
-          objectFit: 'cover',
-          objectPosition: 'center',
+          objectFit: 'cover', objectPosition: 'center',
         }}
       />
     </div>
@@ -59,34 +44,30 @@ const diferenciais = [
 ]
 
 export default function V1() {
+  const router = useRouter()
+  const [nome, setNome] = useState('')
+  const [tel, setTel] = useState('')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!nome.trim() || !tel.trim()) return
+    router.push(`/obrigado?nome=${encodeURIComponent(nome)}&tel=${encodeURIComponent(tel)}`)
+  }
+
   return (
     <main style={{ fontFamily: "var(--font-inter), sans-serif", background: '#FDF8F5', color: '#1A0D13', overflowX: 'hidden' }}>
 
-      {/* BOTÃO WA FLUTUANTE */}
-      <a
-        href={WA_LINK}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Abrir WhatsApp"
-        style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 999, background: '#25D366', borderRadius: '50%', width: 60, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(37,211,102,0.4)', transition: 'transform 0.2s' }}
-        onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1.1)'}
-        onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1)'}
-      >
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      </a>
-
-      {/* HERO — imagem de fundo + overlay berry + headline + CTA */}
+      {/* HERO — foto de fundo + overlay berry */}
       <section style={{ background: '#1A0D13', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '80px 24px', position: 'relative', overflow: 'hidden' }}>
-        {/* Foto de fundo semi-transparente */}
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: "url('/img3.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.3, pointerEvents: 'none' }} />
-        {/* Overlay berry */}
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(100,15,50,0.70)', pointerEvents: 'none' }} />
+        {/* Foto de fundo */}
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: "url('/img3.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.55, pointerEvents: 'none' }} />
+        {/* Overlay com gradiente berry */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(50,5,25,0.72) 0%, rgba(139,28,90,0.58) 50%, rgba(50,5,25,0.80) 100%)', pointerEvents: 'none' }} />
         {/* Círculos decorativos */}
-        <div style={{ position: 'absolute', top: -120, right: -120, width: 480, height: 480, borderRadius: '50%', background: 'rgba(255,255,255,0.05)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: -80, left: -80, width: 320, height: 320, borderRadius: '50%', background: 'rgba(255,255,255,0.05)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: -120, right: -120, width: 480, height: 480, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: -80, left: -80, width: 320, height: 320, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
 
         <div style={{ position: 'relative', zIndex: 2, maxWidth: 780 }}>
-          {/* Logo no hero — fundo berry esconde o bg preto do JPG */}
           <div style={{ marginBottom: 40, display: 'flex', justifyContent: 'center' }}>
             <Logo height={52} />
           </div>
@@ -107,15 +88,12 @@ export default function V1() {
 
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#fff', color: '#8B1C5A', padding: '16px 36px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}
+              href="#form"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#fff', color: '#8B1C5A', padding: '16px 36px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 8px 32px rgba(0,0,0,0.25)' }}
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#FDF0F4'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)' }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#fff'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
             >
-              {WA_SVG}
-              Agendar pelo WhatsApp
+              Agendar meu horário
             </a>
             <a
               href="#servicos"
@@ -130,10 +108,10 @@ export default function V1() {
       </section>
 
       {/* SOCIAL PROOF BAR */}
-      <section style={{ background: '#6A1444', padding: '18px 24px' }}>
-        <div style={{ maxWidth: 960, margin: '0 auto', display: 'flex', justifyContent: 'center', gap: 48, flexWrap: 'wrap' }}>
-          {['⭐ 4.3 no Google', '9 anos no RioMar', 'Esterilização em Autoclave', 'Atendimento em até 20 min'].map(t => (
-            <span key={t} style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.8)', whiteSpace: 'nowrap' }}>{t}</span>
+      <section style={{ background: '#6A1444', padding: '16px 24px' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px 20px', justifyItems: 'center' }}>
+          {['⭐ 4.3 no Google', '9 anos no RioMar', 'Autoclave Garantido', 'Espera: até 20 min'].map(t => (
+            <span key={t} style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.82)', textAlign: 'center' }}>{t}</span>
           ))}
         </div>
       </section>
@@ -166,14 +144,11 @@ export default function V1() {
 
         <div style={{ textAlign: 'center', marginTop: 48 }}>
           <a
-            href={WA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#form"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#8B1C5A', color: '#fff', padding: '15px 36px', borderRadius: 10, fontSize: 15, fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s' }}
             onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#6A1444'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)' }}
             onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#8B1C5A'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
           >
-            {WA_SVG}
             Agendar meu horário
           </a>
         </div>
@@ -213,8 +188,8 @@ export default function V1() {
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 40 }}>
           {[
-            { n: '1', title: 'Escolha como prefere chegar', desc: 'Agende pelo WhatsApp ou apareça direto. Sem complicação.' },
-            { n: '2', title: 'Seja atendida em até 20 minutos', desc: 'Chegou, foi recebida. Pode aproveitar o RioMar enquanto espera.' },
+            { n: '1', title: 'Preencha o formulário', desc: 'Deixe seu nome e WhatsApp. Leva menos de 30 segundos.' },
+            { n: '2', title: 'Confirme pelo WhatsApp', desc: 'Nossa equipe entra em contato e confirma seu horário na hora.' },
             { n: '3', title: 'Saia do jeito que você gosta', desc: 'Feito com técnica, capricho e dentro do tempo que você tem.' },
           ].map(s => (
             <div key={s.n}>
@@ -223,18 +198,6 @@ export default function V1() {
               <p style={{ fontSize: 14, color: '#9B7080', lineHeight: 1.65 }}>{s.desc}</p>
             </div>
           ))}
-        </div>
-        <div style={{ marginTop: 56 }}>
-          <a
-            href={WA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#8B1C5A', color: '#fff', padding: '16px 40px', borderRadius: 12, fontSize: 15, fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#6A1444'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#8B1C5A'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
-          >
-            Agendar agora
-          </a>
         </div>
       </section>
 
@@ -247,7 +210,7 @@ export default function V1() {
             <p style={{ fontSize: 15, color: '#6B4A56', lineHeight: 1.7, marginBottom: 28 }}>
               Dentro do RioMar Shopping Aracaju, Alameda de Serviços, ao lado da lotérica.
             </p>
-            <div style={{ display: 'flex', gap: 32, marginBottom: 32 }}>
+            <div style={{ display: 'flex', gap: 32, marginBottom: 32, flexWrap: 'wrap' }}>
               <div>
                 <p style={{ fontSize: 11, fontWeight: 700, color: '#8B1C5A', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>Seg a Sáb</p>
                 <p style={{ fontSize: 17, fontWeight: 700, color: '#1A0D13' }}>10h às 22h</p>
@@ -284,28 +247,51 @@ export default function V1() {
         </div>
       </section>
 
-      {/* CTA FINAL */}
-      <section style={{ background: '#8B1C5A', padding: '100px 32px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      {/* FORMULÁRIO */}
+      <section id="form" style={{ background: '#8B1C5A', padding: '80px 32px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'rgba(255,255,255,0.05)', pointerEvents: 'none' }} />
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: 680, margin: '0 auto' }}>
-          <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(2.2rem, 6vw, 4.5rem)', fontWeight: 700, color: '#fff', lineHeight: 1.1, marginBottom: 22, letterSpacing: '-0.01em' }}>
-            Pronta para agendar?
+        <div style={{ position: 'absolute', bottom: -60, left: -60, width: 260, height: 260, borderRadius: '50%', background: 'rgba(255,255,255,0.05)', pointerEvents: 'none' }} />
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 520, margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.18em', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase', marginBottom: 16 }}>Agendamento</p>
+          <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', fontWeight: 700, color: '#fff', marginBottom: 14, lineHeight: 1.1 }}>
+            Garanta seu horário agora
           </h2>
-          <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, marginBottom: 44 }}>
-            Manda uma mensagem e a gente confirma seu horário na hora.
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.7)', marginBottom: 36, lineHeight: 1.6 }}>
+            Preencha abaixo e entraremos em contato em até 1 hora.
           </p>
-          <a
-            href={WA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: '#fff', color: '#8B1C5A', padding: '18px 44px', borderRadius: 14, fontSize: 17, fontWeight: 700, textDecoration: 'none', transition: 'all 0.2s', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#FDF0F4'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-3px)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#fff'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)' }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Agendar pelo WhatsApp
-          </a>
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginTop: 18 }}>Retorno em até 1 hora no horário comercial.</p>
+          <style>{`
+            #v1-form input::placeholder { color: rgba(255,255,255,0.45); }
+            #v1-form input:focus { border-color: rgba(255,255,255,0.65) !important; outline: none; }
+          `}</style>
+          <form id="v1-form" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <input
+              type="text"
+              placeholder="Seu nome"
+              value={nome}
+              onChange={e => setNome(e.target.value)}
+              required
+              style={{ padding: '16px 20px', borderRadius: 12, border: '1.5px solid rgba(255,255,255,0.25)', background: 'rgba(255,255,255,0.12)', color: '#fff', fontSize: 16, width: '100%', boxSizing: 'border-box', transition: 'border-color 0.2s' }}
+            />
+            <input
+              type="tel"
+              placeholder="Seu WhatsApp (com DDD)"
+              value={tel}
+              onChange={e => setTel(e.target.value)}
+              required
+              style={{ padding: '16px 20px', borderRadius: 12, border: '1.5px solid rgba(255,255,255,0.25)', background: 'rgba(255,255,255,0.12)', color: '#fff', fontSize: 16, width: '100%', boxSizing: 'border-box', transition: 'border-color 0.2s' }}
+            />
+            <button
+              type="submit"
+              style={{ padding: '17px', borderRadius: 12, border: 'none', background: '#fff', color: '#8B1C5A', fontSize: 16, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', marginTop: 4 }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#FDF0F4'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-2px)' }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#fff'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)' }}
+            >
+              Quero agendar meu horário
+            </button>
+          </form>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', marginTop: 16 }}>
+            Suas informações são sigilosas e não serão compartilhadas.
+          </p>
         </div>
       </section>
 
