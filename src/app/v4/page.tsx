@@ -211,6 +211,56 @@ export default function V4() {
         </div>
       </section>
 
+      {/* PORTFÓLIO — imagens contextuais por serviço */}
+      <section style={{ padding: '80px 32px', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div className="reveal" style={{ marginBottom: 48 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.22em', color: '#C9A84C', textTransform: 'uppercase', marginBottom: 16 }}>Portfólio</p>
+            <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(1.8rem, 4.5vw, 3rem)', fontWeight: 700, lineHeight: 1.1 }}>
+              Nosso trabalho fala por si
+            </h2>
+          </div>
+
+          {/* Unhas */}
+          <div style={{ marginBottom: 28 }}>
+            <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: 14 }}>Manicure e Alongamento</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
+              {['/img1.jpg', '/img2.jpg', '/img3.jpg'].map((src, i) => (
+                <div key={src} className={`reveal d${i + 1}`} style={{ borderRadius: 10, overflow: 'hidden', height: 260 }}>
+                  <img src={src} alt="Unhas" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', transition: 'transform 0.4s' }}
+                    onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.06)'}
+                    onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Maquiagem, Cílios e Cabelo */}
+          <div>
+            <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: 14 }}>Maquiagem, Cílios e Cabelo</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
+              {[
+                { src: '/img4.jpg', label: 'Maquiagem' },
+                { src: '/img5.jpg', label: 'Cílios e Sobrancelhas' },
+                { src: '/img6.jpg', label: 'Maquiagem Artística' },
+                { src: '/img7.jpg', label: 'Cabelo' },
+              ].map(({ src, label }, i) => (
+                <div key={src} className={`reveal d${i + 1}`} style={{ borderRadius: 10, overflow: 'hidden', position: 'relative' }}>
+                  <img src={src} alt={label} style={{ width: '100%', height: 240, objectFit: 'cover', objectPosition: 'top', display: 'block', transition: 'transform 0.4s' }}
+                    onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.06)'}
+                    onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
+                  />
+                  <div style={{ padding: '10px 12px', background: 'rgba(255,255,255,0.03)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                    <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>{label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* DIFERENCIAIS */}
       <section style={{ padding: '110px 32px', background: 'rgba(139,28,90,0.06)', borderTop: '1px solid rgba(139,28,90,0.15)', borderBottom: '1px solid rgba(139,28,90,0.15)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>

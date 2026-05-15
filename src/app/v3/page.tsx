@@ -1,5 +1,7 @@
 'use client'
 
+import { useState, useEffect } from 'react'
+
 const WA_NUMBER = '5579999999999'
 const WA_MSG = encodeURIComponent('Oi! Vi o site de vocês e quero agendar um horário. Podem me ajudar?')
 const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`
@@ -16,6 +18,21 @@ const services = [
 ]
 
 export default function V3() {
+  const gallery = [
+    { src: '/img1.jpg', label: 'Manicure', desc: 'Nail art francesa com lacinho' },
+    { src: '/img2.jpg', label: 'Unhas', desc: 'Nude com detalhe dourado' },
+    { src: '/img3.jpg', label: 'Alongamento', desc: 'Gel bordô stiletto' },
+    { src: '/img4.jpg', label: 'Maquiagem', desc: 'Smoky eye completo' },
+    { src: '/img5.jpg', label: 'Cílios e Sobrancelhas', desc: 'Extensão fio a fio' },
+    { src: '/img6.jpg', label: 'Maquiagem', desc: 'Artístico com glitter' },
+    { src: '/img7.jpg', label: 'Cabelos', desc: 'Penteado com tranças' },
+  ]
+  const [cur, setCur] = useState(0)
+  useEffect(() => {
+    const t = setInterval(() => setCur(c => (c + 1) % gallery.length), 3800)
+    return () => clearInterval(t)
+  }, [gallery.length])
+
   return (
     <main style={{ fontFamily: "var(--font-inter), sans-serif", background: '#fff', color: '#111', overflowX: 'hidden' }}>
 
@@ -184,6 +201,65 @@ export default function V3() {
                 <h3 style={{ fontFamily: "var(--font-playfair), serif", fontSize: 18, fontWeight: 700, color: d.accent ? '#fff' : '#111', marginBottom: 12, lineHeight: 1.3 }}>{d.title}</h3>
                 <p style={{ fontSize: 14, color: d.accent ? 'rgba(255,255,255,0.7)' : '#9B7080', lineHeight: 1.7 }}>{d.desc}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GALERIA — Carrossel único */}
+      <section style={{ overflow: 'hidden', background: '#fff' }}>
+        {/* Imagens empilhadas com fade */}
+        <div style={{ position: 'relative', height: 'clamp(320px, 55vw, 560px)' }}>
+          {gallery.map((item, i) => (
+            <div
+              key={item.src}
+              style={{
+                position: 'absolute', inset: 0,
+                opacity: i === cur ? 1 : 0,
+                transition: 'opacity 0.75s ease',
+                pointerEvents: i === cur ? 'auto' : 'none',
+              }}
+            >
+              <img
+                src={item.src}
+                alt={item.label}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+              />
+              {/* Caption */}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(17,0,10,0.78))', padding: '64px 56px 36px' }}>
+                <p style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase', letterSpacing: '0.18em', marginBottom: 6 }}>{item.label}</p>
+                <p style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(1rem, 2.5vw, 1.6rem)', color: '#fff', fontWeight: 600 }}>{item.desc}</p>
+              </div>
+            </div>
+          ))}
+
+          {/* Setas */}
+          <button
+            onClick={() => setCur(c => (c - 1 + gallery.length) % gallery.length)}
+            style={{ position: 'absolute', left: 20, top: '50%', transform: 'translateY(-50%)', width: 52, height: 52, borderRadius: '50%', background: 'rgba(255,255,255,0.92)', border: 'none', color: '#8B1C5A', fontSize: 26, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.15)', zIndex: 10, lineHeight: 1 }}
+            aria-label="Anterior"
+          >‹</button>
+          <button
+            onClick={() => setCur(c => (c + 1) % gallery.length)}
+            style={{ position: 'absolute', right: 20, top: '50%', transform: 'translateY(-50%)', width: 52, height: 52, borderRadius: '50%', background: 'rgba(255,255,255,0.92)', border: 'none', color: '#8B1C5A', fontSize: 26, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.15)', zIndex: 10, lineHeight: 1 }}
+            aria-label="Próxima"
+          >›</button>
+        </div>
+
+        {/* Rodapé do carrossel: título + dots */}
+        <div style={{ padding: '28px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, borderTop: '1px solid #F0E8ED' }}>
+          <div>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.18em', color: '#8B1C5A', textTransform: 'uppercase', marginBottom: 4 }}>Galeria</p>
+            <p style={{ fontFamily: "var(--font-playfair), serif", fontSize: 'clamp(1rem, 2.5vw, 1.5rem)', fontWeight: 700, color: '#111' }}>Nosso trabalho fala por si</p>
+          </div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            {gallery.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCur(i)}
+                style={{ width: i === cur ? 28 : 8, height: 8, borderRadius: 4, background: i === cur ? '#8B1C5A' : '#E8C4CF', border: 'none', padding: 0, cursor: 'pointer', transition: 'all 0.3s' }}
+                aria-label={`Slide ${i + 1}`}
+              />
             ))}
           </div>
         </div>

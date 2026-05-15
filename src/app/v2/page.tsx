@@ -121,6 +121,21 @@ export default function V2() {
         </div>
       </div>
 
+      {/* FOTO STRIP — trabalhos de unhas */}
+      <div style={{ display: 'flex', height: 220, overflow: 'hidden' }}>
+        {['/img1.jpg', '/img2.jpg', '/img3.jpg'].map((src, i) => (
+          <div key={i} style={{ flex: 1, overflow: 'hidden' }}>
+            <img
+              src={src}
+              alt="Trabalhos de unhas"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', transition: 'transform 0.5s' }}
+              onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.07)'}
+              onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
+            />
+          </div>
+        ))}
+      </div>
+
       {/* SERVIÇOS */}
       <section id="servicos" style={{ padding: '100px 40px', maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 60, flexWrap: 'wrap', gap: 24 }}>
@@ -184,6 +199,33 @@ export default function V2() {
         </div>
       </section>
 
+      {/* GALERIA — maquiagem, sobrancelhas e cabelo */}
+      <section style={{ padding: '64px 40px', background: '#FDF6F2' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.18em', color: '#8B1C5A', textTransform: 'uppercase', marginBottom: 32 }}>Galeria de trabalhos</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
+            {[
+              { src: '/img4.jpg', label: 'Maquiagem' },
+              { src: '/img5.jpg', label: 'Cílios e Sobrancelhas' },
+              { src: '/img7.jpg', label: 'Cabelos' },
+            ].map(({ src, label }) => (
+              <div key={label} style={{ position: 'relative', borderRadius: 16, overflow: 'hidden', height: 360 }}>
+                <img
+                  src={src}
+                  alt={label}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block', transition: 'transform 0.45s' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.05)'}
+                  onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
+                />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(26,13,19,0.82))', padding: '40px 20px 20px' }}>
+                  <span style={{ color: '#fff', fontSize: 15, fontWeight: 700, fontFamily: "var(--font-playfair), serif" }}>{label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* COMO FUNCIONA */}
       <section style={{ padding: '100px 40px', maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 60, alignItems: 'start' }}>
@@ -216,6 +258,21 @@ export default function V2() {
           </div>
         </div>
       </section>
+
+      {/* IMAGEM ACENTO — maquiagem artística */}
+      <div style={{ padding: '0 40px 56px', maxWidth: 1100, margin: '0 auto' }}>
+        <div style={{ borderRadius: 20, overflow: 'hidden', position: 'relative', height: 280 }}>
+          <img src="/img6.jpg" alt="Maquiagem artística" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(253,246,242,0.96) 38%, rgba(253,246,242,0.4) 65%, transparent)' }}>
+            <div style={{ padding: '40px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: '#8B1C5A', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: 10 }}>Maquiagem</p>
+              <p style={{ fontFamily: "var(--font-playfair), serif", fontSize: 24, color: '#1A0D13', fontWeight: 700, lineHeight: 1.3 }}>
+                Do social<br />ao artístico
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* LOCALIZAÇÃO */}
       <section style={{ background: '#F7EAED', padding: '80px 40px' }}>
