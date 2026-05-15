@@ -122,9 +122,9 @@ export default function V2() {
       </div>
 
       {/* FOTO STRIP — trabalhos de unhas */}
-      <div style={{ display: 'flex', height: 220, overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', overflow: 'hidden' }}>
         {['/img1.jpg', '/img2.jpg', '/img3.jpg'].map((src, i) => (
-          <div key={i} style={{ flex: 1, overflow: 'hidden' }}>
+          <div key={i} style={{ aspectRatio: '3/4', overflow: 'hidden' }}>
             <img
               src={src}
               alt="Trabalhos de unhas"
@@ -209,7 +209,7 @@ export default function V2() {
               { src: '/img5.jpg', label: 'Cílios e Sobrancelhas' },
               { src: '/img7.jpg', label: 'Cabelos' },
             ].map(({ src, label }) => (
-              <div key={label} style={{ position: 'relative', borderRadius: 16, overflow: 'hidden', height: 360 }}>
+              <div key={label} style={{ position: 'relative', borderRadius: 16, overflow: 'hidden', aspectRatio: '3/4' }}>
                 <img
                   src={src}
                   alt={label}
@@ -261,7 +261,7 @@ export default function V2() {
 
       {/* IMAGEM ACENTO — maquiagem artística */}
       <div style={{ padding: '0 40px 56px', maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ borderRadius: 20, overflow: 'hidden', position: 'relative', height: 280 }}>
+        <div style={{ borderRadius: 20, overflow: 'hidden', position: 'relative', height: 'clamp(380px, 45vw, 520px)' }}>
           <img src="/img6.jpg" alt="Maquiagem artística" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(253,246,242,0.96) 38%, rgba(253,246,242,0.4) 65%, transparent)' }}>
             <div style={{ padding: '40px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>

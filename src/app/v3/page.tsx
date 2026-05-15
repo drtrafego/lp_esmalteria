@@ -209,7 +209,7 @@ export default function V3() {
       {/* GALERIA — Carrossel único */}
       <section style={{ overflow: 'hidden', background: '#fff' }}>
         {/* Imagens empilhadas com fade */}
-        <div style={{ position: 'relative', height: 'clamp(320px, 55vw, 560px)' }}>
+        <div style={{ position: 'relative', height: 'clamp(480px, 75vw, 720px)' }}>
           {gallery.map((item, i) => (
             <div
               key={item.src}

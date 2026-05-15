@@ -226,7 +226,7 @@ export default function V4() {
             <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: 14 }}>Manicure e Alongamento</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
               {['/img1.jpg', '/img2.jpg', '/img3.jpg'].map((src, i) => (
-                <div key={src} className={`reveal d${i + 1}`} style={{ borderRadius: 10, overflow: 'hidden', height: 260 }}>
+                <div key={src} className={`reveal d${i + 1}`} style={{ borderRadius: 10, overflow: 'hidden', aspectRatio: '3/4' }}>
                   <img src={src} alt="Unhas" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', transition: 'transform 0.4s' }}
                     onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.06)'}
                     onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
@@ -247,7 +247,7 @@ export default function V4() {
                 { src: '/img7.jpg', label: 'Cabelo' },
               ].map(({ src, label }, i) => (
                 <div key={src} className={`reveal d${i + 1}`} style={{ borderRadius: 10, overflow: 'hidden', position: 'relative' }}>
-                  <img src={src} alt={label} style={{ width: '100%', height: 240, objectFit: 'cover', objectPosition: 'top', display: 'block', transition: 'transform 0.4s' }}
+                  <img src={src} alt={label} style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'top', display: 'block', transition: 'transform 0.4s' }}
                     onMouseEnter={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.06)'}
                     onMouseLeave={e => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
                   />
